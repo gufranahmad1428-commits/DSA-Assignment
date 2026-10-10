@@ -1,0 +1,77 @@
+//Write a C program to implement a Priority Queue using an array. Perform the following operations:
+//15.Insert 10 with priority 2.
+//16.Insert 20 with priority 1.
+//17.Insert 30 with priority 3.
+//18.Delete the element having the highest priority.
+//19.Display the remaining elements with their priorities.
+
+
+#include <stdio.h>
+#define MAXSIZE 10
+
+int queue[MAXSIZE];
+int priority[MAXSIZE];
+int size = 0;
+
+void insert(int value, int p) {
+    if (size == MAXSIZE) {
+        printf("Priority Queue Overflow\n");
+        return;
+    }
+
+    queue[size] = value;
+    priority[size] = p;
+    size++;
+
+    printf("%d inserted with priority %d\n", value, p);
+}
+
+void deleteHighestPriority() {
+    if (size == 0) {
+        printf("Priority Queue Underflow\n");
+        return;
+    }
+
+    int highest = 0;
+
+    for (int i = 1; i < size; i++) {
+        if (priority[i] < priority[highest]) {
+            highest = i;
+        }
+    }
+
+    printf("Deleted element: %d\n", queue[highest]);
+
+    for (int i = highest; i < size - 1; i++) {
+        queue[i] = queue[i + 1];
+        priority[i] = priority[i + 1];
+    }
+
+    size--;
+}
+
+void display() {
+    if (size == 0) {
+        printf("Priority Queue is Empty\n");
+        return;
+    }
+
+    printf("\nRemaining elements with priorities:\n");
+
+    for (int i = 0; i < size; i++) {
+        printf("Element: %d, Priority: %d\n",
+               queue[i], priority[i]);
+    }
+}
+
+int main() {
+    insert(10, 2);
+    insert(20, 1);
+    insert(30, 3);
+
+    deleteHighestPriority();
+
+    display();
+
+    return 0;
+}
