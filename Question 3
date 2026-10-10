@@ -1,0 +1,101 @@
+//Write a C program to implement a Deque using an array. Perform the following operations:
+//9.Insert 10 from Front.
+//10.Insert 20 from Rear.
+//11.Insert 30 from Front.
+//12.Delete one element from Front.
+//13.Delete one element from Rear.
+//14.Display the remaining elements
+
+#include <stdio.h>
+#define MAXSIZE 10
+
+int deque[MAXSIZE];
+int front = -1, rear = -1;
+
+void insertFront(int value) {
+    if (front == 0) {
+        printf("Insertion from Front is not possible\n");
+        return;
+    }
+
+    if (front == -1) {
+        front = rear = 0;
+    } else {
+        front--;
+    }
+
+    deque[front] = value;
+    printf("%d inserted from Front\n", value);
+}
+
+void insertRear(int value) {
+    if (rear == MAXSIZE - 1) {
+        printf("Insertion from Rear is not possible\n");
+        return;
+    }
+
+    if (front == -1) {
+        front = rear = 0;
+    } else {
+        rear++;
+    }
+
+    deque[rear] = value;
+    printf("%d inserted from Rear\n", value);
+}
+
+void deleteFront() {
+    if (front == -1) {
+        printf("Deque Underflow\n");
+        return;
+    }
+
+    printf("Deleted from Front: %d\n", deque[front]);
+
+    if (front == rear) {
+        front = rear = -1;
+    } else {
+        front++;
+    }
+}
+
+void deleteRear() {
+    if (rear == -1) {
+        printf("Deque Underflow\n");
+        return;
+    }
+
+    printf("Deleted from Rear: %d\n", deque[rear]);
+
+    if (front == rear) {
+        front = rear = -1;
+    } else {
+        rear--;
+    }
+}
+
+void display() {
+    if (front == -1) {
+        printf("Deque is Empty\n");
+        return;
+    }
+
+    printf("Remaining elements: ");
+    for (int i = front; i <= rear; i++) {
+        printf("%d ", deque[i]);
+    }
+    printf("\n");
+}
+
+int main() {
+    insertFront(10);
+    insertRear(20);
+    insertFront(30);
+
+    deleteFront();
+    deleteRear();
+
+    display();
+
+    return 0;
+}
